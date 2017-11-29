@@ -60,12 +60,14 @@
     __weak PhotoFlickrCVC* weakSelf = self;
     NSURL *url;
     
-    if (self.isComeFrom == didComeFromTagsFlickrTVC){
-        url = [FlickrAPIClass URLFotoforTags:self.tag];
-    }
-    if(self.isComeFrom == didComeFromSearchVC){
-        url = [FlickrAPIClass URLFotoforText:self.tag];
-    }
+    if(self.textForSearch){
+        if (self.isComeFrom == didComeFromTagsFlickrTVC){
+            url = [FlickrAPIClass URLFotoforTags:self.textForSearch];
+        }
+        if(self.isComeFrom == didComeFromSearchVC){
+            url = [FlickrAPIClass URLFotoforText:self.textForSearch];
+        }
+    
     
     dispatch_queue_t fetchQ = dispatch_queue_create("flickr photo", NULL);
     dispatch_async(fetchQ, ^{
@@ -87,6 +89,7 @@
             [weakSelf.collectionView reloadData];
         });
     });
+    }
 }
 
 

@@ -14,6 +14,6 @@ typedef enum {
 } IsComeFrom;
 
 @interface PhotoFlickrCVC : UICollectionViewController
-@property(strong,nonatomic) NSString *tag;
+@property(strong,nonatomic) NSString *textForSearch;
 @property(nonatomic) IsComeFrom isComeFrom;
 @end

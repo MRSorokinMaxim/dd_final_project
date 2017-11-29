@@ -38,7 +38,7 @@
 #pragma mark - Navigation
 - (void)prepareImageViewController:(PhotoFlickrCVC *)ivc toDisplayPhoto:(NSString *)tag
 {
-    ivc.tag = tag;
+    ivc.textForSearch = tag;
     ivc.isComeFrom = didComeFromSearchVC;
     ivc.title = self.textSearch.text;
 }
@@ -47,7 +47,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [self.view endEditing:YES];
     if ([sender isKindOfClass:[UIButton class]]) {
-        if (self.textSearch.text) {
+        if (![self.textSearch.text  isEqual: @""]) {
             if ([segue.identifier isEqualToString:@"search for text"]) {
                 if ([segue.destinationViewController isKindOfClass:[PhotoFlickrCVC class]]) {
                     [self prepareImageViewController:segue.destinationViewController
