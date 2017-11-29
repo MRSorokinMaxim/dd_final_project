@@ -10,11 +10,12 @@
 #import "FlickrAPIClass.h"
 #import "PhotoFlickrCVC.h"
 
+
 @interface TagsFlickrTVC ()
 @property (nonatomic, strong) NSArray *tag;
 @end
 
-@implementation TagsFlickrTVC
+@implementation TagsFlickrTVC 
 
 #pragma mark - Properties
 
@@ -22,32 +23,44 @@
     _tag = tag;
     [self.tableView reloadData];
 }
+#pragma mark - Load ViewController
 
-- (void)viewDidLoad
-{
-    
+- (void)viewDidLoad{
     [super viewDidLoad];
+
     [self fetchPhotos];
 }
 
-
 - (IBAction)fetchPhotos
 {
-    __weak TagsFlickrTVC* weakSelf = self;
     [self.refreshControl beginRefreshing];
-    NSURL *url1 = [FlickrAPIClass URLforRecentTags];
-    dispatch_queue_t fetchQ = dispatch_queue_create("flickr tags", NULL);
-    dispatch_async(fetchQ, ^{
-        NSData *jsonResults1 = [NSData dataWithContentsOfURL:url1];
-        NSDictionary *propertyListResults1 = [NSJSONSerialization JSONObjectWithData:jsonResults1
-                                                                             options:0
-                                                                               error:NULL];
-        NSArray *tags =   [propertyListResults1 valueForKeyPath:@"hottags.tag"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.refreshControl endRefreshing];
-            weakSelf.tag = tags;
-        });
-    });
+    SessionDowload *sessionDowload = [[SessionDowload alloc]init];
+    sessionDowload.delegate = self;
+    NSURL *url = [FlickrAPIClass URLforRecentTags];
+    [sessionDowload sessionTaskForTags:url andKey:@"hottags.tag"];
+    
+}
+#pragma mark - DataSourseLoadProtocolDelegate
+
+-(void)tagsLoaded:(NSArray *)tags{
+    self.tag = tags;
+    [self.refreshControl endRefreshing];
+}
+
+-(void)happendErrorDowload{
+    
+    [self.refreshControl endRefreshing];
+    NSString *message = @"Скорее всего пропал интернет! Но это не точно";
+    NSString *alertTitle =@"Error";
+    NSString *okText = @"Ok";
+    UIAlertController *alert =  [UIAlertController alertControllerWithTitle:alertTitle
+                                                                    message:message
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okButton =[ UIAlertAction actionWithTitle:okText
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:nil];
+    [alert addAction:okButton];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - Table view data source

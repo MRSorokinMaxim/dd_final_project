@@ -12,38 +12,25 @@
 
 @interface PhotoFlickrCVC ()
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-@property(nonatomic,strong) NSMutableArray* smallPhotoURL;
-@property(nonatomic,strong) NSMutableArray* bigPhotoURL;
+@property(nonatomic,strong) NSArray* smallPhotoURL;
+@property(nonatomic,strong) NSArray* bigPhotoURL;
 @end
 
 @implementation PhotoFlickrCVC
 
-@synthesize smallPhotoURL = _smallPhotoURL;
-@synthesize bigPhotoURL = _bigPhotoURL;
 
 
 #pragma mark - Properties
 
--(NSMutableArray *)smallPhotoURL{
-    if (!_smallPhotoURL) {
-        _smallPhotoURL = [[NSMutableArray alloc]init];
-        
-    }
-    return _smallPhotoURL;
-}
--(void)setSmallPhoto:(NSMutableArray *)smallPhotoURL{
+
+-(void)setSmallPhoto:(NSArray *)smallPhotoURL{
     
     _smallPhotoURL = smallPhotoURL;
     [self.collectionView reloadData];
 }
--(NSMutableArray *)bigPhotoURL{
-    if (!_bigPhotoURL) {
-        _bigPhotoURL = [[NSMutableArray alloc]init];
-        
-    }
-    return _bigPhotoURL;
-}
--(void)setBigPhotoURL:(NSMutableArray *)bigPhotoURL{
+
+-(void)setBigPhotoURL:(NSArray *)bigPhotoURL{
+    
     _bigPhotoURL = bigPhotoURL;
     [self.collectionView reloadData];
 }
@@ -57,7 +44,6 @@
 }
 - (void)fetchPhotos
 {
-    __weak PhotoFlickrCVC* weakSelf = self;
     NSURL *url;
     
     if(self.textForSearch){
@@ -67,32 +53,42 @@
         if(self.isComeFrom == didComeFromSearchVC){
             url = [FlickrAPIClass URLFotoforText:self.textForSearch];
         }
-    
-    
-    dispatch_queue_t fetchQ = dispatch_queue_create("flickr photo", NULL);
-    dispatch_async(fetchQ, ^{
-        NSData *jsonResults = [NSData dataWithContentsOfURL:url];
-        NSDictionary *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                            options:0
-                                                                              error:NULL];
-        NSArray *foto =   [propertyListResults valueForKeyPath:@"photos.photo"];
-        NSMutableArray* arrayBigPhoto = [[NSMutableArray alloc]init];
-        NSMutableArray* arraySmallPhoto = [[NSMutableArray alloc]init];
-        for ( NSDictionary *dict in foto){
-            [arraySmallPhoto addObject:[FlickrAPIClass URLforPhoto:dict format:FlickrPhotoFormatSquare]];
-            [arrayBigPhoto addObject:[FlickrAPIClass URLforPhoto:dict format:FlickrPhotoFormatLarge]];
-        }
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.smallPhotoURL = arraySmallPhoto;
-            weakSelf.bigPhotoURL = arrayBigPhoto;
-            [weakSelf.collectionView reloadData];
-        });
-    });
+        
+        SessionDowload *session = [[SessionDowload alloc]init];
+        session.delegate = self;
+        [session sessionTaskForPhotoURL:url andKey:@"photos.photo"];
     }
 }
+#pragma mark - DataSourseLoadProtocolDelegate
 
+-(void)smallPhotoLoaded:(NSArray*)smallPhotoURL andBigPhotoURL:(NSArray*)bigPhotoURL{
+    
+    self.smallPhotoURL = smallPhotoURL;
+    self.bigPhotoURL = bigPhotoURL;
+    [self.collectionView reloadData];
+}
 
+-(void)smallImageView:(UIImageView *)imageView andCollectionViewCell:(UICollectionViewCell*)cell{
+    
+    [cell.contentView addSubview:imageView];
+    [self.spinner stopAnimating];
+    
+}
+-(void)happendErrorDowload{
+    
+    [self.spinner stopAnimating];
+    NSString *message = @"Скорее всего пропал интернет! Но это не точно";
+    NSString *alertTitle =@"Error";
+    NSString *okText = @"Ok";
+    UIAlertController *alert =  [UIAlertController alertControllerWithTitle:alertTitle
+                                                                    message:message
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okButton =[ UIAlertAction actionWithTitle:okText
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:nil];
+    [alert addAction:okButton];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 #pragma mark - <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -113,22 +109,9 @@
     NSURL *URL = self.smallPhotoURL[indexPath.row];
     
     if (URL) {
-        
-        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-        
-        NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
-            
-            if (!error) {
-                if ([request.URL isEqual:URL]) {
-                    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:localfile]];
-                    UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-                    dispatch_async(dispatch_get_main_queue(), ^{ [cell.contentView addSubview: imageView];[self.spinner stopAnimating]; });
-                }
-            }
-        }];
-        [task resume];
+        SessionDowload *sessiondowload = [[SessionDowload alloc]init];
+        sessiondowload.delegate = self;
+        [sessiondowload sessionTaskForLoadPhotoAtURL:URL andCollectionViewCell:cell];
     }
     return cell;
 }

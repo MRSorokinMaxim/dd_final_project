@@ -43,7 +43,6 @@
     ivc.title = self.textSearch.text;
 }
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [self.view endEditing:YES];
     if ([sender isKindOfClass:[UIButton class]]) {
@@ -54,10 +53,26 @@
                                       toDisplayPhoto:self.textSearch.text];
                 }
             }
+        }else{
+            [self happendError];
         }
     }
 }
 
+-(void)happendError{
+    
+    NSString *message = @"Вы ничего не ввели в поле поиска!";
+    NSString *alertTitle =@"Error";
+    NSString *okText = @"Ok";
+    UIAlertController *alert =  [UIAlertController alertControllerWithTitle:alertTitle
+                                                                    message:message
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okButton =[ UIAlertAction actionWithTitle:okText
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:nil];
+    [alert addAction:okButton];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 
 @end

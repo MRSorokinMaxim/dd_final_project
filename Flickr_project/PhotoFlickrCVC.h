@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SessionDowload.h"
 
 typedef enum {
     didComeFromTagsFlickrTVC = 1,
     didComeFromSearchVC = 2,
 } IsComeFrom;
 
-@interface PhotoFlickrCVC : UICollectionViewController
+@interface PhotoFlickrCVC : UICollectionViewController <DataSourseLoadProtocolDelegate>
+
 @property(strong,nonatomic) NSString *textForSearch;
 @property(nonatomic) IsComeFrom isComeFrom;
 @end

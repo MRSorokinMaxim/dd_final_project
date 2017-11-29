@@ -77,22 +77,32 @@
     
     if (self.imageURL)
     {
-        __weak ImageVC *weakSelf = self;
-        [self.spinner stopAnimating];
-        NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-        NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
-            if (!error) {
-                if ([request.URL isEqual:self.imageURL]) {
-            
-                    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:localfile]];
-                    dispatch_async(dispatch_get_main_queue(), ^{ weakSelf.image = image; });
-                }
-            }
-        }];
-        [task resume];
+        SessionDowload *sessionDowload = [[SessionDowload alloc]init];
+        sessionDowload.delegate = self;
+        [sessionDowload sessionTaskForLoadBigPhotoAtUrl:self.imageURL];
+
     }
 }
 
+#pragma mark - DataSourseLoadProtocolDelegate
+
+-(void)bigImage:(UIImage *)image{
+    self.image = image;
+    [self.spinner stopAnimating];
+}
+
+-(void)happendErrorDowload{
+    [self.spinner stopAnimating];
+    NSString *message = @"Скорее всего пропал интернет! Но это не точно";
+    NSString *alertTitle =@"Error";
+    NSString *okText = @"Ok";
+    UIAlertController *alert =  [UIAlertController alertControllerWithTitle:alertTitle
+                                                                    message:message
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okButton =[ UIAlertAction actionWithTitle:okText
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:nil];
+    [alert addAction:okButton];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 @end

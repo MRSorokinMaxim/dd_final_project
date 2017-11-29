@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ImageVC : UIViewController
+#import "SessionDowload.h"
+@interface ImageVC : UIViewController <DataSourseLoadProtocolDelegate>
 @property(strong,nonatomic) NSURL *imageURL;
 @end

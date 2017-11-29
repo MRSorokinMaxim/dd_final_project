@@ -17,6 +17,7 @@
 		6DC4ADDD1FCE0D7C00281489 /* ImageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC4ADDC1FCE0D7C00281489 /* ImageVC.m */; };
 		6DC4ADE01FCE103000281489 /* FlickrAPIClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC4ADDF1FCE103000281489 /* FlickrAPIClass.m */; };
 		6DC4ADE31FCED03400281489 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC4ADE21FCED03400281489 /* SearchVC.m */; };
+		6DC4ADE61FCEFAB700281489 /* SessionDowload.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC4ADE51FCEFAB700281489 /* SessionDowload.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,8 @@
 		6DC4ADDF1FCE103000281489 /* FlickrAPIClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrAPIClass.m; sourceTree = "<group>"; };
 		6DC4ADE11FCED03400281489 /* SearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
 		6DC4ADE21FCED03400281489 /* SearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
+		6DC4ADE41FCEFAB700281489 /* SessionDowload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionDowload.h; sourceTree = "<group>"; };
+		6DC4ADE51FCEFAB700281489 /* SessionDowload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDowload.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +83,8 @@
 				6DC4ADE21FCED03400281489 /* SearchVC.m */,
 				6DC4ADDE1FCE103000281489 /* FlickrAPIClass.h */,
 				6DC4ADDF1FCE103000281489 /* FlickrAPIClass.m */,
+				6DC4ADE41FCEFAB700281489 /* SessionDowload.h */,
+				6DC4ADE51FCEFAB700281489 /* SessionDowload.m */,
 				6DC4ADC11FCE0BAF00281489 /* Main.storyboard */,
 				6DC4ADC41FCE0BAF00281489 /* Assets.xcassets */,
 				6DC4ADC61FCE0BAF00281489 /* LaunchScreen.storyboard */,
@@ -172,6 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DC4ADDD1FCE0D7C00281489 /* ImageVC.m in Sources */,
+				6DC4ADE61FCEFAB700281489 /* SessionDowload.m in Sources */,
 				6DC4ADE01FCE103000281489 /* FlickrAPIClass.m in Sources */,
 				6DC4ADD41FCE0C9E00281489 /* PhotoFlickrCVC.m in Sources */,
 				6DC4ADD11FCE0C7300281489 /* TagsFlickrTVC.m in Sources */,
