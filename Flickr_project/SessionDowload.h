@@ -27,9 +27,9 @@
 
 @property(weak,atomic) id <DataSourseLoadProtocolDelegate> delegate;
 
--(void)sessionTaskForTags:(NSURL*)url andKey:(NSString*)keyString;
--(void)sessionTaskForPhotoURL:(NSURL*)url andKey:(NSString*)key1;
--(void)sessionTaskForLoadPhotoAtURL:(NSURL*)url andCollectionViewCell:(UICollectionViewCell*)cell;
--(void)sessionTaskForLoadBigPhotoAtUrl:(NSURL*)url;
+-(void)sessionTaskForTags:(NSURL*)url andKey:(NSString*)keyString;// For TagsFlickrTVC
+-(void)sessionTaskForPhotoURL:(NSURL*)url andKey:(NSString*)key;// For PhotoFlockrCVC
+-(void)sessionTaskForLoadPhotoAtURL:(NSURL*)url andCollectionViewCell:(UICollectionViewCell*)cell;// For PhotoFlockrCVC
+-(void)sessionTaskForLoadBigPhotoAtUrl:(NSURL*)url;// For ImageVC
 
 @end

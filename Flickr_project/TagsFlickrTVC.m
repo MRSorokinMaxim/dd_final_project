@@ -23,6 +23,7 @@
     _tag = tag;
     [self.tableView reloadData];
 }
+
 #pragma mark - Load ViewController
 
 - (void)viewDidLoad{
