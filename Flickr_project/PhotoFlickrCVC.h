@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    didComeFromTagsFlickrTVC = 1,
+    didComeFromSearchVC = 2,
+} IsComeFrom;
+
 @interface PhotoFlickrCVC : UICollectionViewController
 @property(strong,nonatomic) NSString *tag;
+@property(nonatomic) IsComeFrom isComeFrom;
 @end

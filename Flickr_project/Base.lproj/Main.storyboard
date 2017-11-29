@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="98p-Sd-ap0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vkx-CH-XIS">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,10 +23,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HOD-sB-p9W">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </scrollView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="wRk-Pr-pMA">
-                                <rect key="frame" x="169.5" y="315.5" width="37" height="37"/>
+                                <rect key="frame" x="169.5" y="291" width="37" height="37"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                         </subviews>
@@ -46,7 +47,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1932" y="124.58770614692655"/>
+            <point key="canvasLocation" x="2426" y="512"/>
         </scene>
         <!--Popular Tags-->
         <scene sceneID="JDv-JB-ooH">
@@ -61,7 +62,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fHP-I5-Nwe" id="z5b-Zt-ImA">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
@@ -131,12 +132,13 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cmo-Yr-yMc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1108" y="124.58770614692655"/>
+            <point key="canvasLocation" x="1414" y="513"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Tags-->
         <scene sceneID="W7R-CL-cDG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="98p-Sd-ap0" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Tags" image="tag" selectedImage="tag" id="zbh-tw-Dim"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ObT-nK-ATV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -151,5 +153,107 @@
             </objects>
             <point key="canvasLocation" x="-596" y="125.4872563718141"/>
         </scene>
+        <!--Search by Text-->
+        <scene sceneID="97w-0L-3ao">
+            <objects>
+                <viewController id="RPa-HR-lxL" customClass="SearchVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="25l-O7-DZM"/>
+                        <viewControllerLayoutGuide type="bottom" id="Yw0-Js-lQW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ssv-Kk-bfX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9Y-Pf-fXB">
+                                <rect key="frame" x="34" y="318.5" width="45" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="GGx-hk-F2d"/>
+                                </constraints>
+                                <state key="normal" title="Поиск"/>
+                                <connections>
+                                    <action selector="buttonSearch:" destination="RPa-HR-lxL" eventType="touchUpInside" id="rki-SS-LXG"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vgR-d8-0Xy">
+                                <rect key="frame" x="107" y="318.5" width="225" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Tr-qM-ncZ">
+                                <rect key="frame" x="197" y="378.5" width="45" height="30"/>
+                                <state key="normal" title="Найти"/>
+                                <connections>
+                                    <segue destination="R2f-e1-Vkn" kind="show" identifier="search for text" id="G73-gC-z7h"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="vgR-d8-0Xy" secondAttribute="trailing" constant="27" id="1CG-ab-0JR"/>
+                            <constraint firstItem="O9Y-Pf-fXB" firstAttribute="centerY" secondItem="Ssv-Kk-bfX" secondAttribute="centerY" id="GtJ-cW-Kmg"/>
+                            <constraint firstItem="O9Y-Pf-fXB" firstAttribute="top" secondItem="vgR-d8-0Xy" secondAttribute="top" id="Vja-jb-SqH"/>
+                            <constraint firstItem="O9Y-Pf-fXB" firstAttribute="leading" secondItem="Ssv-Kk-bfX" secondAttribute="leadingMargin" constant="18" id="c6K-Qi-AHq"/>
+                            <constraint firstItem="vgR-d8-0Xy" firstAttribute="centerX" secondItem="0Tr-qM-ncZ" secondAttribute="centerX" id="cuH-eq-sDZ"/>
+                            <constraint firstItem="0Tr-qM-ncZ" firstAttribute="top" secondItem="vgR-d8-0Xy" secondAttribute="bottom" constant="30" id="e52-hD-3VK"/>
+                            <constraint firstItem="vgR-d8-0Xy" firstAttribute="leading" secondItem="O9Y-Pf-fXB" secondAttribute="trailing" constant="28" id="w9g-TP-COH"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Search by Text" id="7c4-93-ILQ"/>
+                    <connections>
+                        <outlet property="buttonFind" destination="0Tr-qM-ncZ" id="nCp-zp-Tir"/>
+                        <outlet property="textSearch" destination="vgR-d8-0Xy" id="S7S-h0-CiR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n6A-Dz-ChR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="343" y="887"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="afC-NX-yGd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9yz-6r-WPv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" image="search" selectedImage="search" id="pgf-jB-IcF"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JOd-0b-qoe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="RPa-HR-lxL" kind="relationship" relationship="rootViewController" id="Cdq-eh-78R"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qR2-Wv-Mt7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-596" y="887"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="9V2-iZ-gf6">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="vkx-CH-XIS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="T0W-UI-tcy">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="9yz-6r-WPv" kind="relationship" relationship="viewControllers" id="ldk-0C-xbr"/>
+                        <segue destination="98p-Sd-ap0" kind="relationship" relationship="viewControllers" id="eyz-Ih-pyz"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BPe-to-KqS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1770" y="485"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="search" width="30" height="30"/>
+        <image name="tag" width="30" height="30"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="tH2-bl-nMP"/>
+    </inferredMetricsTieBreakers>
 </document>

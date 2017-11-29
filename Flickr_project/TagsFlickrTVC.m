@@ -76,6 +76,7 @@
 - (void)prepareImageViewController:(PhotoFlickrCVC *)ivc toDisplayPhoto:(NSString *)tag
 {
     ivc.tag = tag;
+    ivc.isComeFrom = didComeFromTagsFlickrTVC;
     ivc.title = tag;
 }
 

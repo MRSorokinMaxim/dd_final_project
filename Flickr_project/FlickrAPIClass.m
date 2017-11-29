@@ -26,7 +26,9 @@
 +(NSURL *)URLFotoforTags:(NSString*)tag{
     return [self URLForQuery:[NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=%@&per_page=20",tag]];
 }
-
++(NSURL *)URLFotoforText:(NSString*)text{
+    return [self URLForQuery:[NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&text=%@&per_page=20",text]];
+}
 +(NSURL *)URLforPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format{
     return [NSURL URLWithString:[self urlStringForPhoto:photo format:format]];
 }

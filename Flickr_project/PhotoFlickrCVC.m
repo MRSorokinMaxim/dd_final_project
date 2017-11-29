@@ -58,7 +58,15 @@
 - (void)fetchPhotos
 {
     __weak PhotoFlickrCVC* weakSelf = self;
-    NSURL *url = [FlickrAPIClass URLFotoforTags:self.tag];
+    NSURL *url;
+    
+    if (self.isComeFrom == didComeFromTagsFlickrTVC){
+        url = [FlickrAPIClass URLFotoforTags:self.tag];
+    }
+    if(self.isComeFrom == didComeFromSearchVC){
+        url = [FlickrAPIClass URLFotoforText:self.tag];
+    }
+    
     dispatch_queue_t fetchQ = dispatch_queue_create("flickr photo", NULL);
     dispatch_async(fetchQ, ^{
         NSData *jsonResults = [NSData dataWithContentsOfURL:url];
