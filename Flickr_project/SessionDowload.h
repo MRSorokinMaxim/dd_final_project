@@ -19,7 +19,7 @@
 -(void)smallPhotoLoaded:(NSArray*)smallPhotoURL andBigPhotoURL:(NSArray*)bigPhotoURL; // For PhotoFlockrCVC
 -(void)smallImageView:(UIImageView*)imageView andCollectionViewCell:(UICollectionViewCell*)cell; // For PhotoFlockrCVC
 -(void)bigImage:(UIImage*)image; // For ImageVC
--(void)happendErrorDowload; //For All
+-(void)happendErrorDowload; //For All VC
 
 @end
 

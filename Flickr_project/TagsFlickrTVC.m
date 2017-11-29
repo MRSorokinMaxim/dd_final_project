@@ -32,8 +32,8 @@
     [self fetchPhotos];
 }
 
-- (IBAction)fetchPhotos
-{
+- (IBAction)fetchPhotos{
+    
     [self.refreshControl beginRefreshing];
     SessionDowload *sessionDowload = [[SessionDowload alloc]init];
     sessionDowload.delegate = self;
@@ -76,8 +76,8 @@
     return [self.tag count];;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     static NSString *CellIdentifier = @"tags";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     NSDictionary *tag = self.tag[indexPath.row];
@@ -87,16 +87,15 @@
 
 #pragma mark - Navigation
 
-- (void)prepareImageViewController:(PhotoFlickrCVC *)ivc toDisplayPhoto:(NSString *)tag
-{
+- (void)prepareImageViewController:(PhotoFlickrCVC *)ivc toDisplayPhoto:(NSString *)tag{
+    
     ivc.textForSearch = tag;
     ivc.isComeFrom = didComeFromTagsFlickrTVC;
     ivc.title = tag;
 }
 
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if ([sender isKindOfClass:[UITableViewCell class]]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
