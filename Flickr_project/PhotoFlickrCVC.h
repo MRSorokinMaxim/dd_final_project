@@ -16,6 +16,7 @@ typedef enum {
 
 @interface PhotoFlickrCVC : UICollectionViewController <DataSourseLoadProtocolDelegate>
 
-@property(strong,nonatomic) NSString *textForSearch;
-@property(nonatomic) IsComeFrom isComeFrom;
+@property (strong, nonatomic) NSString *textForSearch;
+@property (nonatomic) IsComeFrom isComeFrom;
+
 @end

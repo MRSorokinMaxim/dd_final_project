@@ -9,50 +9,54 @@
 #import "TagsFlickrTVC.h"
 #import "FlickrAPIClass.h"
 #import "PhotoFlickrCVC.h"
+#import "SessionDowload.h"
 
+@interface TagsFlickrTVC () <DataSourseLoadProtocolDelegate>
 
-@interface TagsFlickrTVC ()
-@property (nonatomic, strong) NSArray *tag;
+@property (nonatomic, strong) NSArray *tags;
+
 @end
 
 @implementation TagsFlickrTVC 
 
+
 #pragma mark - Properties
 
--(void)setTag:(NSArray *)tag{
-    _tag = tag;
+
+- (void)setTag:(NSArray *)tags {
+    _tags = tags;
     [self.tableView reloadData];
 }
 
+
 #pragma mark - Load ViewController
 
-- (void)viewDidLoad{
-    [super viewDidLoad];
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
     [self fetchPhotos];
 }
 
-- (IBAction)fetchPhotos{
-    
+- (IBAction)fetchPhotos {
     [self.refreshControl beginRefreshing];
-    SessionDowload *sessionDowload = [[SessionDowload alloc]init];
+    SessionDowload *sessionDowload = [[SessionDowload alloc] init];
     sessionDowload.delegate = self;
-    NSURL *url = [FlickrAPIClass URLforRecentTags];
-    [sessionDowload sessionTaskForTags:url andKey:@"hottags.tag"];
-    
+    [sessionDowload sessionTaskForTags:[FlickrAPIClass URLforRecentTags] andKey:@"hottags.tag"];
 }
+
+
 #pragma mark - DataSourseLoadProtocolDelegate
 
--(void)tagsLoaded:(NSArray *)tags{
+
+- (void)tagsLoaded:(NSArray *)tags {
     self.tag = tags;
     [self.refreshControl endRefreshing];
 }
 
--(void)happendErrorDowload{
-    
+- (void)happendErrorDowload {
     [self.refreshControl endRefreshing];
     NSString *message = @"Скорее всего пропал интернет! Но это не точно";
-    NSString *alertTitle =@"Error";
+    NSString *alertTitle = @"Error";
     NSString *okText = @"Ok";
     UIAlertController *alert =  [UIAlertController alertControllerWithTitle:alertTitle
                                                                     message:message
@@ -64,46 +68,44 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+
 #pragma mark - Table view data source
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return [self.tag count];;
+    return [self.tags count];;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     static NSString *CellIdentifier = @"tags";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    NSDictionary *tag = self.tag[indexPath.row];
+    NSDictionary *tag = self.tags[indexPath.row];
     cell.textLabel.text = [tag valueForKeyPath:@"_content"];
     return cell;
 }
 
+
 #pragma mark - Navigation
 
-- (void)prepareImageViewController:(PhotoFlickrCVC *)ivc toDisplayPhoto:(NSString *)tag{
-    
+
+- (void)prepareImageViewController:(PhotoFlickrCVC *)ivc toDisplayPhoto:(NSString *)tag {
     ivc.textForSearch = tag;
     ivc.isComeFrom = didComeFromTagsFlickrTVC;
     ivc.title = tag;
 }
 
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([sender isKindOfClass:[UITableViewCell class]]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         if (indexPath) {
             if ([segue.identifier isEqualToString:@"tags to small foto"]) {
                 if ([segue.destinationViewController isKindOfClass:[PhotoFlickrCVC class]]) {
                     [self prepareImageViewController:segue.destinationViewController
-                                      toDisplayPhoto:[self.tag[indexPath.row] valueForKeyPath:@"_content"]];
+                                      toDisplayPhoto:[self.tags[indexPath.row] valueForKeyPath:@"_content"]];
                 }
             }
         }

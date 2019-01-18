@@ -8,6 +8,7 @@
 
 #import "SearchVC.h"
 #import "PhotoFlickrCVC.h"
+
 @interface SearchVC ()
 
 @property (weak, nonatomic) IBOutlet UITextField *textSearch;
@@ -15,29 +16,32 @@
 
 @end
 
+
+#pragma mark - Lifecycle
+
+
 @implementation SearchVC
 
 - (void)viewDidLoad {
-   
-    
     [super viewDidLoad];
     self.textSearch.hidden = YES;
     self.buttonFind.hidden = YES;
 }
 
 
+#pragma mark - Action
+
+
 - (IBAction)buttonSearch:(id)sender {
     self.textSearch.hidden = self.textSearch.hidden == NO ? YES : NO;
     self.buttonFind.hidden = self.buttonFind.hidden == NO ? YES : NO;
-    
-    
 }
 
 
-
 #pragma mark - Navigation
-- (void)prepareImageViewController:(PhotoFlickrCVC *)ivc toDisplayPhoto:(NSString *)tag
-{
+
+
+- (void)prepareImageViewController:(PhotoFlickrCVC *)ivc toDisplayPhoto:(NSString *)tag {
     ivc.textForSearch = tag;
     ivc.isComeFrom = didComeFromSearchVC;
     ivc.title = self.textSearch.text;
@@ -53,16 +57,16 @@
                                       toDisplayPhoto:self.textSearch.text];
                 }
             }
-        }else{
+        }
+        else {
             [self happendError];
         }
     }
 }
 
--(void)happendError{
-    
+- (void)happendError {
     NSString *message = @"Вы ничего не ввели в поле поиска!";
-    NSString *alertTitle =@"Error";
+    NSString *alertTitle = @"Error";
     NSString *okText = @"Ok";
     UIAlertController *alert =  [UIAlertController alertControllerWithTitle:alertTitle
                                                                     message:message
@@ -73,6 +77,5 @@
     [alert addAction:okButton];
     [self presentViewController:alert animated:YES completion:nil];
 }
-
 
 @end

@@ -16,9 +16,9 @@ typedef enum {
 
 @interface FlickrAPIClass : UIViewController
 
-+(NSURL*)URLforRecentTags;
-+(NSURL*)URLFotoforTags:(NSString*)tag;
-+(NSURL *)URLFotoforText:(NSString*)text;
-+(NSURL *)URLforPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format;
++ (NSURL *)URLforRecentTags;
++ (NSURL *)URLFotoforTags:(NSString*)tag;
++ (NSURL *)URLFotoforText:(NSString*)text;
++ (NSURL *)URLforPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format;
 
 @end

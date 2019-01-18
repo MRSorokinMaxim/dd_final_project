@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SessionDowload.h"
 
-@interface TagsFlickrTVC : UITableViewController <DataSourseLoadProtocolDelegate>
 
+@interface TagsFlickrTVC : UITableViewController
 
 @end
